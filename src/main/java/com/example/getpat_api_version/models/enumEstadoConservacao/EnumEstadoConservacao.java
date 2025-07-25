@@ -20,7 +20,7 @@ public enum EnumEstadoConservacao {
         return descricao;
     }
 
-    @JsonCreator
+    @JsonCreator //biblioteca jackson, tava dando problema no h2 anteriormente 
     public static EnumEstadoConservacao fromJson(String valor) {
         for (EnumEstadoConservacao estado : EnumEstadoConservacao.values()) {
             if (estado.name().equalsIgnoreCase(valor.trim()) || 

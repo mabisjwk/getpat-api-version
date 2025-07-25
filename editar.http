@@ -1,4 +1,4 @@
-PUT http://localhost:8080/editar-equipamento/editar/1
+PUT http://localhost:8080/editar-equipamento/editar/3
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
   "setor": "TI",
   "numeroPatrimonio": 13432345,
   "sala": "Sala 1",
-  "responsavel": "Welington",
+  "responsavel": "GABES",
   "tempoGarantia": "P3M",
   "notaFiscal": "NtF556677",
   "modelo": "XPS 13",

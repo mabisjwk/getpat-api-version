@@ -41,10 +41,10 @@ public class CadastroEquipamento {
 
     @Min(1)
     @Column(name = "numeroPat", nullable = false, unique = true)
-    private Integer numeroPat;
+    private Integer numeroPat; //STRING
 
     private LocalDate dataCriacao;
-    @PrePersist //garantir que a dataCriacao seja preenchida com a data atual
+    @PrePersist 
     protected void onCreate() {
         this.dataCriacao = LocalDate.now();
     }
