@@ -1,0 +1,7 @@
+Falta gerar o controlador de exclusao
+
+Falta gerar as exceções
+
+talvez lançar um mapping
+
+ok
