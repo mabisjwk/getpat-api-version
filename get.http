@@ -1,1 +1,1 @@
-GET http://localhost:8080/buscar-equipamento?responsavel=Gabes
+GET http://localhost:8080/buscar-equipamento?sala=saLa%201

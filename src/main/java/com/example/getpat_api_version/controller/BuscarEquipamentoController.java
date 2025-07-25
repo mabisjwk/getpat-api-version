@@ -1,6 +1,9 @@
 package com.example.getpat_api_version.controller;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +28,16 @@ public class BuscarEquipamentoController {
         if (filtros == null || filtros.isEmpty()) {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
-        List<CadastroEquipamento> resultado = cadastroEquipamentoService.filtrarEquipamentos(filtros);
+
+        Map<String, String> filtrosDecodificados = new HashMap<>();
+        for (Map.Entry<String, String> entry : filtros.entrySet()) {
+            String chave = entry.getKey();
+            String valor = URLDecoder.decode(entry.getValue(), StandardCharsets.UTF_8);
+            valor = valor.toLowerCase();
+            filtrosDecodificados.put(chave, valor);
+        }
+
+        List<CadastroEquipamento> resultado = cadastroEquipamentoService.filtrarEquipamentos(filtrosDecodificados);
         return ResponseEntity.ok(resultado);
     }
 

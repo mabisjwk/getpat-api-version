@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -67,38 +68,61 @@ public class CadastroEquipamentoService {
         Specification<CadastroEquipamento> spec = Specification.unrestricted();
 
         if (filtros.containsKey("tipo")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("tipo"), filtros.get("tipo")));
+            String tipo = filtros.get("tipo").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("tipo")), "%" + tipo + "%")
+            );
         }
 
         if (filtros.containsKey("marca")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("marca"), filtros.get("marca")));
+            String marca = filtros.get("marca").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("marca")), "%" + marca + "%")
+            );
         }
 
         if (filtros.containsKey("modelo")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("modelo"), filtros.get("modelo")));
+            String modelo = filtros.get("modelo").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("modelo")), "%" + modelo + "%")
+            );
         }
 
         if (filtros.containsKey("numeroSerie")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("numeroSerie"), filtros.get("numeroSerie")));
+            String numeroSerie = filtros.get("numeroSerie").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("numeroSerie")), "%" + numeroSerie + "%")
+            );
         }
+
+        if (filtros.containsKey("responsavel")) {
+            String responsavel = filtros.get("responsavel").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("responsavel")), "%" + responsavel + "%")
+            );
+        }
+
+        if (filtros.containsKey("setor")) {
+            String setor = filtros.get("setor").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("setor")), "%" + setor + "%")
+            );
+        }
+
+        if (filtros.containsKey("sala")) {
+            String sala = filtros.get("sala").toLowerCase();
+            spec = spec.and((root, query, cb) ->
+                cb.like(cb.lower(root.get("sala")), "%" + sala + "%")
+            );
+        }
+
+        // Campos que ainda podem permanecer com comparação exata:
 
         if (filtros.containsKey("numeroPatrimonio")) {
             try {
                 Integer numeroPat = Integer.parseInt(filtros.get("numeroPatrimonio"));
                 spec = spec.and((root, query, cb) -> cb.equal(root.get("numeroPat"), numeroPat));
             } catch (NumberFormatException ignored) {}
-        }
-
-        if (filtros.containsKey("setor")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("setor"), filtros.get("setor")));
-        }
-
-        if (filtros.containsKey("sala")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("sala"), filtros.get("sala")));
-        }
-
-        if (filtros.containsKey("responsavel")) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("responsavel"), filtros.get("responsavel")));
         }
 
         if (filtros.containsKey("notaFiscal")) {
@@ -143,5 +167,21 @@ public class CadastroEquipamentoService {
         return cadastroEquipamentoRepository.findAll(spec);
     }
 
+    public boolean deletarPorNumeroPatrimonio(int numeroPat) {
+    Optional<CadastroEquipamento> equipamento = cadastroEquipamentoRepository.findByNumeroPat(numeroPat);
+        if (equipamento.isPresent()) {
+            cadastroEquipamentoRepository.delete(equipamento.get());
+            return true;
+        }
+        return false;
+    }
 
+    public boolean deletarPorNumeroSerie(String numeroSerie) {
+        Optional<CadastroEquipamento> equipamento = cadastroEquipamentoRepository.findByNumeroSerie(numeroSerie);
+        if (equipamento.isPresent()) {
+            cadastroEquipamentoRepository.delete(equipamento.get());
+            return true;
+        }
+        return false;
+    }
 }
