@@ -1,0 +1,19 @@
+POST http://localhost:8080/cadastro-equipamento/cadastrar
+Content-Type: application/json
+
+{
+  "tipo": "Laptop",
+  "marca": "Dell",
+  "setor": "TI",
+  "numeroPatrimonio": 13432345,
+  "sala": "Sala 1",
+  "responsavel": "João Silva",
+  "tempoGarantia": "P1Y",
+  "notaFiscal": "NtF556677",
+  "modelo": "XPS 13",
+  "numeroSerie": "SN1234ffh56789",
+  "dataAquisicao": "2023-01-15",
+  "dataCriacao": "2023-01-20",
+  "valorAquisicao": 5000.00,
+  "estadoConservacao": "EmUso"
+}

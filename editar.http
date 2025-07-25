@@ -1,0 +1,19 @@
+PUT http://localhost:8080/editar-equipamento/editar/1
+Content-Type: application/json
+
+{
+  "tipo": "Laptop",
+  "marca": "Dell",
+  "setor": "TI",
+  "numeroPatrimonio": 13432345,
+  "sala": "Sala 1",
+  "responsavel": "Gabes",
+  "tempoGarantia": "P3M",
+  "notaFiscal": "NtF556677",
+  "modelo": "XPS 13",
+  "numeroSerie": "SN1234ffh56789",
+  "dataAquisicao": "2023-01-15",
+  "dataCriacao": "2023-01-20",
+  "valorAquisicao": 5000.00,
+  "estadoConservacao": "Em uso"
+}
