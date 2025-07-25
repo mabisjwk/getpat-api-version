@@ -17,7 +17,7 @@ public class DeletarEquipamentoController {
     private CadastroEquipamentoService cadastroEquipamentoService;
 
     @DeleteMapping("/deletarPorPatrimonio/{numeroPat}")
-    public ResponseEntity<String> deletarPorNumeroPat(@PathVariable int numeroPat) {
+    public ResponseEntity<String> deletarPorNumeroPat(@PathVariable Integer numeroPat) {
         boolean deletado = cadastroEquipamentoService.deletarPorNumeroPatrimonio(numeroPat);
         if (deletado) {
             return ResponseEntity.ok("Equipamento com patrimônio " + numeroPat + " deletado com sucesso.");

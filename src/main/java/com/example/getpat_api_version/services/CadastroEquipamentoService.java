@@ -167,7 +167,7 @@ public class CadastroEquipamentoService {
         return cadastroEquipamentoRepository.findAll(spec);
     }
 
-    public boolean deletarPorNumeroPatrimonio(int numeroPat) {
+    public boolean deletarPorNumeroPatrimonio(Integer numeroPat) {
     Optional<CadastroEquipamento> equipamento = cadastroEquipamentoRepository.findByNumeroPat(numeroPat);
         if (equipamento.isPresent()) {
             cadastroEquipamentoRepository.delete(equipamento.get());
