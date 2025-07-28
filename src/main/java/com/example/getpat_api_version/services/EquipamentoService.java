@@ -5,23 +5,22 @@ import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import com.example.getpat_api_version.dtos.CadastroEquipamentoDto;
+import com.example.getpat_api_version.dtos.EquipamentoDto;
 import com.example.getpat_api_version.models.CadastroEquipamento;
 import com.example.getpat_api_version.models.enumEstadoConservacao.EnumEstadoConservacao;
 import com.example.getpat_api_version.repositorios.CadastroEquipamentoRepository;
 
 @Service
-public class CadastroEquipamentoService {
+public class EquipamentoService {
     
     @Autowired
     private CadastroEquipamentoRepository cadastroEquipamentoRepository;
 
     
-    public CadastroEquipamento criarEquipamento(CadastroEquipamentoDto dto) {
+    public CadastroEquipamento criarEquipamento(EquipamentoDto dto) {
         
         CadastroEquipamento equipamento = new CadastroEquipamento();
         equipamento.setNumeroPat(dto.getNumeroPatrimonio());
@@ -33,15 +32,12 @@ public class CadastroEquipamentoService {
         equipamento.setDataAquisicao(dto.getDataAquisicao());
         equipamento.setValorAquisicao(dto.getValorAquisicao());
         equipamento.setTempoGarantia(dto.getTempoGarantia());
-        equipamento.setSetor(dto.getSetor());
-        equipamento.setSala(dto.getSala());
-        equipamento.setResponsavel(dto.getResponsavel());
         equipamento.setEstadoConservacao(dto.getEstadoConservacao());
 
         return cadastroEquipamentoRepository.save(equipamento);
     }
 
-    public CadastroEquipamentoDto atualizarEquipamento(Long id, CadastroEquipamentoDto request) {
+    public EquipamentoDto atualizarEquipamento(Long id, EquipamentoDto request) {
         CadastroEquipamento equipamento = cadastroEquipamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Equipamento não encontrado"));
 
@@ -54,14 +50,11 @@ public class CadastroEquipamentoService {
         equipamento.setDataAquisicao(request.getDataAquisicao());
         equipamento.setValorAquisicao(request.getValorAquisicao());
         equipamento.setTempoGarantia(request.getTempoGarantia());
-        equipamento.setSetor(request.getSetor());
-        equipamento.setSala(request.getSala());
-        equipamento.setResponsavel(request.getResponsavel());
         equipamento.setEstadoConservacao(request.getEstadoConservacao());
 
         cadastroEquipamentoRepository.save(equipamento);
         
-        return new CadastroEquipamentoDto(equipamento);
+        return new EquipamentoDto(equipamento);
     }
 
     public List<CadastroEquipamento> filtrarEquipamentos(Map<String, String> filtros) {
@@ -167,7 +160,16 @@ public class CadastroEquipamentoService {
         return cadastroEquipamentoRepository.findAll(spec);
     }
 
-    public boolean deletarPorNumeroPatrimonio(Integer numeroPat) {
+    public boolean deletarEquipamento(Long id) {
+        Optional<CadastroEquipamento> equipamento = cadastroEquipamentoRepository.findById(id);
+        if (equipamento.isPresent()) {
+            cadastroEquipamentoRepository.delete(equipamento.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deletarPorNumeroPatrimonio(String numeroPat) {
     Optional<CadastroEquipamento> equipamento = cadastroEquipamentoRepository.findByNumeroPat(numeroPat);
         if (equipamento.isPresent()) {
             cadastroEquipamentoRepository.delete(equipamento.get());

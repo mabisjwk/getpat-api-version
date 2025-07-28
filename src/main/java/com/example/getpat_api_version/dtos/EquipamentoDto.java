@@ -18,10 +18,13 @@ import lombok.Setter;
 
 @NoArgsConstructor
 
-public class CadastroEquipamentoDto {
+public class EquipamentoDto {
+
+    private Long id;
+    
     @NotNull(message = "O número de patrimônio não pode ser nulo")
     @Min(1)
-    private int numeroPatrimonio;
+    private String numeroPatrimonio;
 
     @NotBlank(message = "O tipo não pode ser vazio")
     private String tipo;
@@ -50,15 +53,8 @@ public class CadastroEquipamentoDto {
     @NotNull(message = "O tempo de garantia não pode ser nulo")
     private Period tempoGarantia;
 
-    @NotBlank(message = "O setor não pode ser vazio")
-    private String setor;
-
-    @NotBlank(message = "A sala não pode ser vazia")
-    private String sala;
-
-    private String responsavel;
-
-    public CadastroEquipamentoDto(CadastroEquipamento equipamento) {
+    public EquipamentoDto(CadastroEquipamento equipamento) {
+        this.id = equipamento.getId();
         this.numeroPatrimonio = equipamento.getNumeroPat();
         this.tipo = equipamento.getTipo();
         this.modelo = equipamento.getModelo();
@@ -68,10 +64,6 @@ public class CadastroEquipamentoDto {
         this.dataAquisicao = equipamento.getDataAquisicao();
         this.valorAquisicao = equipamento.getValorAquisicao();
         this.tempoGarantia = equipamento.getTempoGarantia();
-        this.setor = equipamento.getSetor();
-        this.sala = equipamento.getSala();
-        this.responsavel = equipamento.getResponsavel();
-        this.estadoConservacao = equipamento.getEstadoConservacao();
 
     }
 

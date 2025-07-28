@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -41,7 +43,7 @@ public class CadastroEquipamento {
 
     @Min(1)
     @Column(name = "numeroPat", nullable = false, unique = true)
-    private Integer numeroPat; //STRING
+    private String numeroPat; //STRING
 
     private LocalDate dataCriacao;
     @PrePersist 
@@ -81,20 +83,14 @@ public class CadastroEquipamento {
     @Column(name = "tempoGarantia", nullable = false)
     private Period tempoGarantia;
 
-    @NotBlank
-    @Column(name = "setor", nullable = false)
-    private String setor;
-
-    @NotBlank
-    @Column(name = "sala", nullable = false)
-    private String sala;
-
-    @Column(name = "responsavel", nullable = true)
-    private String responsavel;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_conservacao", nullable = false)
     private EnumEstadoConservacao estadoConservacao;
+    
+
+    @ManyToOne
+    @JoinColumn(name = "sala_id", nullable = false)
+    private CadastroSala salaCadastro;
 
 }
 
