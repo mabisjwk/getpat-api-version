@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import com.example.getpat_api_version.dtos.EquipamentoDto;
 import com.example.getpat_api_version.models.CadastroEquipamento;
 import com.example.getpat_api_version.models.enumEstadoConservacao.EnumEstadoConservacao;
-import com.example.getpat_api_version.repositorios.CadastroEquipamentoRepository;
+import com.example.getpat_api_version.repositorios.EquipamentoRepository;
 
 @Service
 public class EquipamentoService {
     
     @Autowired
-    private CadastroEquipamentoRepository cadastroEquipamentoRepository;
+    private EquipamentoRepository cadastroEquipamentoRepository;
 
     
     public CadastroEquipamento criarEquipamento(EquipamentoDto dto) {
@@ -112,10 +112,10 @@ public class EquipamentoService {
         // Campos que ainda podem permanecer com comparação exata:
 
         if (filtros.containsKey("numeroPatrimonio")) {
-            try {
-                Integer numeroPat = Integer.parseInt(filtros.get("numeroPatrimonio"));
-                spec = spec.and((root, query, cb) -> cb.equal(root.get("numeroPat"), numeroPat));
-            } catch (NumberFormatException ignored) {}
+            String numeroPat = filtros.get("numeroPatrimonio");
+            spec = spec.and((root, query, cb) ->
+                cb.equal(cb.lower(root.get("numeroPat")), numeroPat.toLowerCase())
+            );
         }
 
         if (filtros.containsKey("notaFiscal")) {

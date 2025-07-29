@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.getpat_api_version.dtos.SetorDto;
 import com.example.getpat_api_version.models.CadastroSetor;
+import com.example.getpat_api_version.services.SetorService;
 import jakarta.validation.Valid;
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @RestController
 @RequestMapping("/setor")
@@ -29,7 +27,7 @@ public class SetorController {
     @PostMapping("/cadastrar")
     public ResponseEntity<SetorDto> cadastrarSetor(@RequestBody @Valid SetorDto dto) {
         CadastroSetor setor = setorService.criarSetor(dto);
-        return ResponseEntity.ok(setor);
+        return ResponseEntity.ok(new SetorDto(setor));
     }
 
     @GetMapping("/listar")

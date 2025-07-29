@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.getpat_api_version.dtos.SalaDto;
-import com.example.getpat_api_version.models.CadastroSala;
+import com.example.getpat_api_version.services.SalaService;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -24,8 +25,8 @@ public class SalaController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<SalaDto> cadastrarSala(@RequestBody @Valid SalaDto dto) {
-        CadastroSala sala = salaService.criarSala(dto);
-        return ResponseEntity.ok(new SalaDto(sala));
+        SalaDto sala = salaService.criarSala(dto);
+        return ResponseEntity.ok(sala);
     }
 
     @GetMapping("/listar")

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.getpat_api_version.dtos.ResponsavelDto;
 import com.example.getpat_api_version.models.CadastroResponsavel;
+import com.example.getpat_api_version.services.ResponsavelService;
 
 import jakarta.validation.Valid;
 
@@ -37,7 +38,7 @@ public class ResponsavelController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<?> editarResponsavel(@PathVariable Long id, @RequestBody @Valid ResponsavelDto dto) {
+    public ResponseEntity<ResponsavelDto> editarResponsavel(@PathVariable Long id, @RequestBody @Valid ResponsavelDto dto) {
         CadastroResponsavel responsavel = responsavelService.editarResponsavel(id, dto);
         return ResponseEntity.ok(new ResponsavelDto(responsavel));
     }
