@@ -1,0 +1,7 @@
+POST http://localhost:8080/sala/cadastrar
+Content-Type: application/json
+
+{
+  "nomeSala": "Sala de Conversa",
+  "setorId": 1
+}

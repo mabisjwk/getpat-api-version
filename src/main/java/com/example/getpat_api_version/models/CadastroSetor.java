@@ -38,5 +38,6 @@ public class CadastroSetor {
 
     @ManyToMany(mappedBy = "setores")
     private List<CadastroResponsavel> responsaveis;
+    
 
 }

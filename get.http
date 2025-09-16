@@ -1,1 +1,1 @@
-GET http://localhost:8080/buscar-equipamento?numeroPat=13432
+GET http://localhost:8080/sala/buscar?nome=Salader

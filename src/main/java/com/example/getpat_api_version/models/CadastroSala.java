@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -31,4 +33,7 @@ public class CadastroSala {
     @OneToMany(mappedBy = "salaCadastro")
     private List<CadastroEquipamento> equipamentos;
     
+    @ManyToOne
+    @JoinColumn(name = "setor_id", nullable = false)
+    private CadastroSetor setor;
 }

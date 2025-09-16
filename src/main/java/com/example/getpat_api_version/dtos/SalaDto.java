@@ -2,6 +2,7 @@ package com.example.getpat_api_version.dtos;
 
 import com.example.getpat_api_version.models.CadastroSala;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,12 +14,16 @@ import lombok.Setter;
 public class SalaDto {
 
     private Long id;
-    
+
     @NotBlank
     private String nomeSala;
+
+    @NotNull
+    private Long setorId;
 
     public SalaDto(CadastroSala sala) {
         this.id = sala.getId();
         this.nomeSala = sala.getNomeSala();
+        this.setorId = sala.getSetor().getId();
     }
 }

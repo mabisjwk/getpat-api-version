@@ -1,7 +1,6 @@
 package com.example.getpat_api_version.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.getpat_api_version.dtos.SalaDto;
 import com.example.getpat_api_version.services.SalaService;
@@ -19,25 +19,28 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/sala")
 public class SalaController {
-    
-    @Autowired
-    private SalaService salaService;
+
+    private final SalaService salaService;
+
+    public SalaController(SalaService salaService) {
+        this.salaService = salaService;
+    }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<SalaDto> cadastrarSala(@RequestBody @Valid SalaDto dto) {
-        SalaDto sala = salaService.criarSala(dto);
-        return ResponseEntity.ok(sala);
+    public ResponseEntity<?> cadastrarSala(@RequestBody @Valid SalaDto dto) {
+        SalaDto response = salaService.criarSala(dto);
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/listar")
-    public List<SalaDto> listarSalas() {
-        return salaService.listarSalas();
+    //so mandar o /buscar?nome= vazio q ele retorna tudo
+    @GetMapping("/buscar")
+    public ResponseEntity<List<SalaDto>> buscarPorNome(@RequestParam String nome) {
+        List<SalaDto> salas = salaService.buscarSalaPorNome(nome);
+        return ResponseEntity.ok(salas);
+        //buscar?nome=nome%20
+        //%20 para ignorar o espaço
     }
-
-    @GetMapping("/buscar/{nomeSala}")
-    public List<SalaDto> buscarSalaPorNome(@PathVariable String nomeSala) {
-        return salaService.buscarSalaPorNome(nomeSala);
-    }
+    
 
     @PutMapping("/editar/{id}")
     public ResponseEntity<?> editarSala(@PathVariable Long id, @RequestBody @Valid SalaDto request) {
