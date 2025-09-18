@@ -1,8 +1,8 @@
 package com.example.getpat_api_version.dtos;
 
 import com.example.getpat_api_version.models.CadastroResponsavel;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class ResponsavelDto {
 
@@ -28,6 +29,7 @@ public class ResponsavelDto {
         this.id = responsavel.getId();
         this.nome = responsavel.getNome();
         this.email = responsavel.getEmail();
+        this.cargo = responsavel.getCargo().getNomeCargo();
     }
     
 }

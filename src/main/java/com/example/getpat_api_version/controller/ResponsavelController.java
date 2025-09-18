@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.getpat_api_version.dtos.ResponsavelDto;
 import com.example.getpat_api_version.models.CadastroResponsavel;
 import com.example.getpat_api_version.services.ResponsavelService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -54,3 +53,4 @@ public class ResponsavelController {
     }
     
 }
+//falta verificacoes e retorno de http.status
