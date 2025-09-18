@@ -72,5 +72,3 @@ public class SalaService {
 
 //https://medium.com/@jeffersonfabriciodev/o-uso-do-autowired-no-spring-%C3%A9-uma-m%C3%A1-pratica-a23378be3c27
 
-//utilizar autowired em construção de protótipos, testes e etc
-//autowired nao específica de que caminho exatamente a injeção é referente
